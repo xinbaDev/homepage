@@ -1,0 +1,329 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Alex Xin</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+
+        <!-- <link href='https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700' rel='stylesheet' type='text/css'> -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.terminal/1.5.3/css/jquery.terminal.min.css" rel="stylesheet"/>
+        <style>
+            html, body {
+                overflow: hidden;
+                margin: 0;
+            }
+            body {
+                font-family: 'Open Sans', 'Helvetica Neue', 'Hiragino Sans GB', 'LiHei Pro', Arial, sans-serif;
+                color: #333;
+            }
+            #wrapper {
+                position: absolute;
+                left: 0;
+                width: 320px;
+                text-align: center;
+                top: 50%;
+                left: 50%;
+                margin-left: -160px;
+                margin-top: -160px;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                user-select: none;
+            }
+            header {
+                text-shadow: 0px 0px 30px #08c, 0px 0px 30px #08c, 0px 0px 30px #08c;
+            }
+            h1 {
+                font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+                font-weight: 700;
+                font-size: 30px;
+                letter-spacing: 9px;
+                text-transform: uppercase;
+                margin: 12px 0;
+                left: 4px;
+                color: #999;
+            }
+            h2 {
+                color: #999;
+                font-weight: normal;
+                font-size: 15px;
+                letter-spacing: .12em;
+                margin-bottom: 30px;
+                left: 3px;
+            }
+            h1, h2 {
+                position: relative;
+            }
+            p {
+                font-size: 14px;
+                line-height: 2em;
+                margin: 0;
+                letter-spacing: 2px;
+            }
+            canvas {
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 0;
+                width: 100%;
+                height: 100%;
+                pointer-events: none;
+                z-index:-999;
+            }
+            a {
+                color: #999;
+                text-decoration: none;
+                transition: color .2s ease;
+            }
+            a:hover {
+                color: #f33;
+            }
+            .terminalButton {
+                left:0;
+                  
+                margin-top: 13px;
+                    margin-left: 5px;
+                    margin-right: 10px;
+                     float: left;
+                    display: block;
+                    line-height: 20px !important;
+                    word-break: break-word;
+                    width: 110px; 
+
+                -webkit-border-radius: 14;
+                  -moz-border-radius: 14;
+                  border-radius: 14px;
+                  font-family: Courier New;
+                  color: white;
+                  font-size: 13px;
+                  background: #1c212b ;
+                  padding: 10px 20px 10px 20px;
+                  text-decoration: none;
+            }
+
+            .terminalButton:hover {
+                background: gray;
+                text-decoration: none;
+            }
+
+            pre{
+                background-color:   #232323;
+                color: #C482E6;
+                border-width: 0;
+            }
+            .terminal{
+                font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
+            }
+            .terminal
+            .terminal-output{
+                word-wrap: normal;
+                word-break: normal;   
+            }
+            .command{
+                color: grey;
+            }
+            .prompt{
+                color: green !important;
+            }
+            .terminalHolder .fakeTerminal{
+                display: block;
+                align-content: left;
+                height: 200px;
+                width: 200px;
+            }
+
+            @keyframes blink {
+                0% {  opacity: 1; } 
+                25% { opacity: 0; }
+                50% { opacity: 0; }
+                100% { opacity: 1; } 
+            }
+            @-webkit-keyframes blink { 
+                0% { opacity: 1; } 
+                25% {opacity: 0; } 
+                50% { opacity: 0; } 
+                100% { opacity: 1; } 
+            } 
+            @-ms-keyframes blink {
+                0% { opacity: 1; } 
+                25% { opacity: 0; } 
+                50% { opacity: 0; } 
+                100% { opacity:1; } 
+            }
+             @-moz-keyframes blink { 
+                 0%  { opacity: 1; } 
+                 25% { opacity: 0; } 
+                 50% { opacity: 0; } 
+                100% { opacity: 1; } 
+            }
+            .cmd .cursor.blink { 
+                background: #0c0;
+                -webkit-animation: blink 1s infinite linear;
+                -moz-animation: blink 1s infinite linear;
+                -ms-animation: blink 1s infinite linear; 
+                animation: blink 1s linear infinite; 
+                -webkit-box-shadow: 0 0 5px rgba(0,100,0,50);
+                -moz-box-shadow: 0 0 5px rgba(0,100,0,50); 
+                -ms-box-shadow: 0 0 5px rgba(0,100,0,50); 
+                -o-box-shadow: 0 0 5px rgba(0,100,0,50); 
+                box-shadow: 0 0 5px rgba(0,100,0,50); 
+            }
+            .cursor{background: #0c0;animation: blink 1s linear infinite;-webkit-animation: blink 1s infinite linear;-ms-animation: blink 1s infinite linear;-moz-animation: blink 1s infinite linear;-webkit-box-shadow: 0 0 5px rgba(0,100,0,50);-moz-box-shadow: 0 0 5px rgba(0,100,0,50);-ms-box-shadow: 0 0 5px rgba(0,100,0,50);-o-box-shadow: 0 0 5px rgba(0,100,0,50);/* box-shadow: 0 0 5px rgba(0,100,0,50); */}
+
+            .wechat_img {
+                width: 300px;
+                height: 300px;
+                display:none;
+                z-index:999;
+            }
+        </style>
+
+    </head>
+    <body>
+        <div class="tilda" id="tilda" style="display: none;"></div>
+
+        <div class="container" style="bottom: 0px; position: fixed;">
+            <div class="row">
+              <div class="fakeTerminal">
+                  <span class="prompt">Press <bold>`</bold> to check out my terminal! &nbsp;</span>
+                  <span class="cursor">&nbsp;</span>
+              </div>
+            </div>
+        </div>
+
+        <div class="base-bg">
+            <canvas id="coderain"></canvas>
+            <div id="wrapper">    
+                <header>
+                    <h1>Alex Xin</h1>
+                    <h2>Life, Hobby &amp; Things in Between&nbsp;</h2>
+                    <p><a href="https://github.com/xinbaDev" target="_blank">Github</a></p>
+                    <a href="#" id="wechat">WeChat</a><img class="wechat_img" src="wechat.JPG"><img>
+                </header>
+
+            </div>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script>
+            $('#wechat').click(function(d){
+                $(this).next().slideToggle(500);
+            });
+        </script>
+        <script>
+            // ie9 above show code rain
+            if(+[1,]){
+                $(document).ready(function() {
+                  var width = coderain.width = screen.availWidth ;
+                  var height = coderain.height = screen.availHeight;
+                  var yPositions = Array(300).join(0).split('');
+                  var ctx = coderain.getContext('2d');
+                  var draw = function() {
+                    ctx.fillStyle = 'rgba(0,0,0,.05)';
+                    ctx.fillRect(0, 0, width, height);
+                    ctx.fillStyle = '#007d80';
+                    ctx.font = '10pt Georgia';
+                    yPositions.map(function(y, index) {
+                         text = String.fromCharCode(1e2 + Math.random() * 330);
+                         x = (index * 10) + 10;
+                         coderain.getContext('2d').fillText(text, x, y);
+                         if (y > Math.random() * 1e4) {
+                            yPositions[index] = 0;
+                         } else {
+                            yPositions[index] = y + 10;
+                         }
+                    });
+                  };
+                  RunMatrix();
+                  function RunMatrix() {
+                    Game_Interval = setInterval(draw,30);
+                  }
+                });
+            }
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.terminal/1.5.3/js/jquery.terminal.min.js"></script>
+        <script>
+            (function($) {
+              $.fn.tilda = function(eval, options) {
+                eval = eval || function(cmd, term) {
+                    term.echo("you don't set eval for tilda");
+                };
+                options = options || {};
+
+                var afterGreeting = "Hello, and welcome."
+                    +"Welcome to my console!\n"
+                    +"Enter 'ls' for a list of commands.\n";
+
+                var settings = {
+                    prompt: 'Guest@alexxin.me: ~/$ ',
+                    name: 'tilda',
+                    height: 200,
+                    enabled: false,
+                    greetings: afterGreeting,
+                    keypress: function(e) {
+                        if (e.which == 96) {
+                            return false;
+                        }
+                    }
+                };
+                if (options) {
+                    $.extend(settings, options);
+                }
+
+                var self = this;
+                this.append('<div class="td" style="opacity: 0.5; height: 100px; bottom: 0; position: fixed; width: 100%;"></div>');
+                self.terminal = this.find('.td').terminal(eval, settings);
+                var focus = false;
+
+                $('body').keypress(function(e) {
+                    if (e.which == 96) {
+                        self.slideToggle('fast');
+                        self.terminal.focus(focus = !focus);
+                        self.terminal.attr({
+                            scrollTop: self.terminal.attr("scrollHeight")
+                        });
+                    }
+                });
+
+                return this;
+              };
+            })($);
+
+            (function($) {
+              $(document).ready(function() {
+
+                var commandText = function(text) {
+                  return "[[;#33D633;]" + text + "]";
+                }
+
+                var paperText = function(text) {
+                  return "[[;#0099FF;]" + text + "]";
+                }
+
+                var logoText = function(text) {                
+                  return "[[gb;#FFCC00;]" + text + "]";
+                }
+
+                $('#tilda').tilda(function(cmd, term) {
+                    if (cmd.toLowerCase() === 'ls') {
+                      term.echo("Current Commands are: \n\n"  
+                          + commandText("Resume")
+                          + commandText("\tGithub")
+                          + commandText("\tClear")
+                          );
+                    } else if (cmd.toLowerCase() === "resume") {
+                      term.echo("\n" + paperText("Unforuntuately, nothing yet"));
+                      
+                    } else if(cmd.toLowerCase() ===  'github') {
+                      term.echo("\n" + logoText("Opening git hub account..."));
+                      var win = window.open("https://github.com/xinbaDev/","_blank"); 
+                      win.focus();
+                    }
+                    else if(cmd.toLowerCase() === 'clear') {             
+                      term.clear();
+                    }
+                })
+              });
+            })(jQuery);
+        </script>
+    </body>
+</html>
